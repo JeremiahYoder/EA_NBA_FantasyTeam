@@ -3,7 +3,6 @@ import type { Node } from 'react';
 import {
   FlatList,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Image,
   Text,
@@ -34,14 +33,14 @@ const App: () => Node = () => {
 
   const isPlayerOnTeam = id => {
 
-    if (!id) return null
+    if (!teamData || !id) return null
 
     return _.find(teamData, { personId: id })
   }
 
   const isPositionFilled = position => {
 
-    if (!teamData) return null
+    if (!teamData || !position) return null
 
     return _.findIndex(teamData, { pos: position })
   }
@@ -53,16 +52,12 @@ const App: () => Node = () => {
     let newTeam = []
     let positionFound = isPositionFilled(player?.pos)
 
-    console.log("addToTeam[player]", player.personId)
-
     if (positionFound > -1) {
       newTeam = [...teamData]
       newTeam[positionFound] = player
     } else {
       newTeam = [...teamData, player]
     }
-
-    console.log("addToTeam[newTeam]", newTeam)
 
     setTeamData(newTeam)
   }
@@ -91,8 +86,6 @@ const App: () => Node = () => {
 
     if (!player?.personId) return null
 
-    // console.log("PlayerStats[player]", player)
-
     return (
       <View style={styles.playerListItemHeadshotContainer}>
         <Image
@@ -107,8 +100,6 @@ const App: () => Node = () => {
 
     if (!player) return null
 
-    // console.log("PlayerStats[player]", player)
-
     return (
       <View style={styles.playerListItemStatsContainer}>
         <Text style={styles.playerListItemStatsPlayerName}>{player?.temporaryDisplayName}</Text>
@@ -120,8 +111,6 @@ const App: () => Node = () => {
   const Player = ({ item : player }) => {
 
     if (!player) return null
-
-    // console.log("Player[player]", player)
 
     let isTeammate = isPlayerOnTeam(player.personId)
 
@@ -154,10 +143,6 @@ const App: () => Node = () => {
   const PlayerList = () => {
 
     if (!playerData) return null
-
-    // console.log("PlayerList[playerData]", playerData)
-
-    // filtered dataset
 
     return (
       <View style={styles.playerListContainer}>
@@ -237,9 +222,6 @@ const styles = StyleSheet.create({
   },
 
   teamBuilderContainer: {
-    // flex: .2, 
-    // alignItems: 'center', 
-    // justifyContent: 'center', 
     borderColor: 'black',
     borderWidth: 1
   },
@@ -249,10 +231,8 @@ const styles = StyleSheet.create({
   },
 
   playerListContainer: {
-    // flex: 1, 
     borderColor: 'red',
     borderWidth: 1,
-    // padding: 5
   },
 
   playerListItemContainer: {
@@ -267,18 +247,13 @@ const styles = StyleSheet.create({
 
   playerListItemHeadshotContainer: {
     flex: 0.3,
-    // borderColor: 'orange',
-    // borderWidth: 1,
   },
   playerListItemHeadshotStyle: {
-    // width: 50, 
     height: 50
   },
 
   playerListItemStatsContainer: {
     flex: 1,
-    // borderColor: 'orange',
-    // borderWidth: 1,
   },
 
   playerListItemStatsPlayerName: {
@@ -287,8 +262,6 @@ const styles = StyleSheet.create({
 
   playerAddRemoveButtonContainer: {
     flex: 0.4,
-    // borderColor: 'orange',
-    // borderWidth: 1,
   },
   playerListItemButton: {
     alignItems: 'center',
@@ -299,9 +272,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   playerListItemButtonLabel: {
-    // flex: 1,
-    // alignSelf: 'center',
-    // justifyContent: 'center'
+    
   },
 });
 
