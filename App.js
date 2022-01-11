@@ -14,9 +14,14 @@ import {
 import SelectDropdown from 'react-native-select-dropdown'
 import _ from 'lodash'
 
-import { POSITIONS, POSITION_ARRAY, ENDPOINTS, TABS, FILTERS, FONT_SIZE_DEFAULT } from './Constants'
-
-
+import { 
+  POSITIONS, 
+  POSITION_ARRAY, 
+  ENDPOINTS, 
+  TABS, 
+  FILTERS, 
+  FONT_SIZE_DEFAULT 
+} from './Constants'
 
 const App: () => Node = () => {
 
@@ -24,8 +29,6 @@ const App: () => Node = () => {
   const [playerData, setPlayerData] = useState(null)
   const [teamData, setTeamData] = useState(null)
   const [myTeam, setMyTeam] = useState([])
-  const [teamName, setTeamName] = useState("")
-  const [teamCity, setTeamCity] = useState("")
   const [filterBy, setFilterBy] = useState(null)
 
   useEffect(() => {
@@ -205,7 +208,7 @@ const App: () => Node = () => {
 
             if (filterBy === FILTERS[0]) return true
 
-            return player.pos.includes(POSITIONS[filterBy.toUpperCase()])
+            return player.pos?.includes(POSITIONS[filterBy.toUpperCase()])
           })}
           renderItem={Player}
           showsVerticalScrollIndicator={false}
@@ -229,25 +232,26 @@ const App: () => Node = () => {
 
   const TeamInput = () => {
 
+    const [teamName, setTeamName] = useState("")
+    const [teamCity, setTeamCity] = useState("")
+
     return (
       <View style={styles.teamBuilderInputContainer}>
         <View style={styles.teamBuilderInputRow}>
           <Text style={styles.teamBuilderInputLabel}>Team City: </Text>
           <TextInput 
-            key={teamCity} 
             value={teamCity} 
             style={styles.teamBuilderInputValue} 
-            onChangeText={text => setTeamCity(text)}
+            onChangeText={setTeamCity}
           />
         </View>
         <Spacer />
         <View style={styles.teamBuilderInputRow}>
           <Text style={styles.teamBuilderInputLabel}>Team Name: </Text>
           <TextInput 
-            key={teamName} 
             value={teamName} 
             style={styles.teamBuilderInputValue} 
-            onChangeText={(text) => setTeamName(text)} 
+            onChangeText={setTeamName} 
           />
         </View>
       </View>
@@ -373,7 +377,7 @@ const styles = StyleSheet.create({
   },
   teamBuilderSpacer: {
     height: 1, 
-    width: '100%', 
+    width: windowWidth, 
     border: 1, 
     borderColor: 'gray'
   },
@@ -400,8 +404,8 @@ const styles = StyleSheet.create({
     borderColor: 'gray', 
     borderWidth: 1, 
     borderRadius: 5, 
-    height: 20, 
-    width: 100
+    height: windowHeight * 0.025, 
+    width: windowWidth * 0.25
   },
   playerListItemContainer: {
     flex: 1,
