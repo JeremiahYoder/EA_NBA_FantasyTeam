@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import type { Node } from 'react';
 import {
+  Dimensions,
   FlatList,
   SafeAreaView,
   StyleSheet,
@@ -203,6 +204,7 @@ const App: () => Node = () => {
             return player.pos.includes(POSITIONS[filterBy.toUpperCase()])
           })}
           renderItem={Player}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     )
@@ -229,7 +231,7 @@ const App: () => Node = () => {
             key={teamCity} 
             value={teamCity} 
             style={styles.teamBuilderInputValue} 
-            onChangeText={text => setTeamCity(text)} 
+            onChangeText={text => setTeamCity(text)}
           />
         </View>
         <Spacer />
@@ -256,6 +258,7 @@ const App: () => Node = () => {
           key={myTeam}
           data={myTeam}
           renderItem={Player}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     )
@@ -293,18 +296,25 @@ const App: () => Node = () => {
   );
 };
 
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
   main: {
     flex: 1
   },
   spacer: {
     flex: 0.1,
-    marginTop: 10,
-    marginBottom: 10
+    marginTop: windowHeight * 0.01,
+    marginBottom: windowHeight * 0.01
   },
 
   tabContainer: {
-    flex: 0.1, backgroundColor: 'white', flexDirection: 'row', alignItems: 'center'
+    flex: 0.1, 
+    backgroundColor: 'white', 
+    flexDirection: 'row', 
+    alignItems: 'center'
   },
   tabDefault: {
     flex: 1,
@@ -326,30 +336,24 @@ const styles = StyleSheet.create({
     color: 'white'
   },
 
-
   teamBuilderContainer: {
-    // borderColor: 'black',
-    // borderWidth: 1
+    
   },
   teamBuilderInputContainer: {
-    padding: 5, paddingTop: 20, paddingBottom: 10
+    padding: 5, 
+    paddingTop: windowHeight * 0.02, 
+    paddingBottom: windowHeight * 0.01
   },
   teamBuilderInputRow: {
-    flexDirection: 'row'
-    // fontSize: FONT_SIZE_DEFAULT,
-    // width: '100%',
-    // borderColor: 'blue',
-    // borderWidth: 1
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   teamBuilderInputLabel: {
     fontSize: FONT_SIZE_DEFAULT,
-    // width: '100%',
-    // borderColor: 'blue',
-    // borderWidth: 1
   },
   teamBuilderInputValue: {
     flex: 1,
-    // width: '100%',
+    height: 40,
     borderColor: 'blue',
     borderBottomWidth: 1,
     backgroundColor: '#EEEEEE',
@@ -362,27 +366,33 @@ const styles = StyleSheet.create({
     borderColor: 'gray'
   },
   teamBuilderTeamContainer: {
-    borderTopWidth: 1, borderTopColor: 'gray'
+    borderTopWidth: 1, 
+    borderTopColor: 'gray'
   },
-
 
   playerListContainer: {
-    // borderColor: 'red',
-    // borderWidth: 1,
+    
   },
   playerListFilterContainer: {
-    flexDirection: 'row', alignSelf: 'flex-start', padding: 10
+    flexDirection: 'row', 
+    alignSelf: 'flex-start', 
+    padding: windowHeight * 0.01
   },
   playerListFilterContainerRow: {
-    flexDirection: 'row', alignSelf: 'center', justifyContent: 'center', padding: 5
+    flexDirection: 'row', 
+    alignSelf: 'center', 
+    justifyContent: 'center', 
+    padding: 5
   },
   playerListFilterButtonStyle: {
-    borderColor: 'gray', borderWidth: 1, borderRadius: 5, height: 20, width: 100
+    borderColor: 'gray', 
+    borderWidth: 1, 
+    borderRadius: 5, 
+    height: 20, 
+    width: 100
   },
   playerListItemContainer: {
     flex: 1,
-    // paddingTop: 10,
-    // paddingLeft: 5,
     paddingRight: 5,
     borderWidth: 1,
     borderColor: 'gray',
@@ -391,23 +401,25 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   playerListItemTagContainer: {
-    backgroundColor: '#DDDDDD', flex: 0.2, height: '100%', alignItems: 'center', justifyContent: 'center'
+    backgroundColor: '#DDDDDD', 
+    flex: 0.2, 
+    height: '100%', 
+    alignItems: 'center', 
+    justifyContent: 'center'
   },
   playerListItemTagLabel: {
-    color: 'black', fontSize: 14
+    color: 'black', 
+    fontSize: 14
   },
   playerListItemHeadshotContainer: {
     flex: 0.3,
   },
   playerListItemHeadshotStyle: {
-    height: 75
+    height: windowHeight * 0.1
   },
   playerListItemStatsContainer: {
-    // borderColor: 'red',
-    // borderWidth: 1,
     flex: 1,
     height: '100%'
-    // alignItems: 'center'
   },
   playerListItemStatsPlayerName: {
     fontWeight: 'bold'
@@ -420,8 +432,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderColor: 'gray',
     padding: 5,
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: windowHeight * 0.01,
+    paddingBottom: windowHeight * 0.01,
     borderWidth: 1,
     borderRadius: 5,
   },
