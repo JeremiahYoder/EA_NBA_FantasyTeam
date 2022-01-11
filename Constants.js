@@ -13,7 +13,7 @@ export const POSITIONS = {
     FORWARD_CENTER: 'F-C',
 }
 
-export var POSITION_ARRAY = [
+export const POSITION_ARRAY = [
     POSITIONS.CENTER,
     POSITIONS.POWER_FORWARD,
     POSITIONS.SMALL_FORWARD,
@@ -32,4 +32,6 @@ export const TABS = {
     PLAYER_SELECTION: 2
 }
 
-export const FILTERS = ["All", "Guard", "Guard_Forward", "Center", "Center_Forward", "Forward", "Forward_Guard", "Forward_Center"]
+export const FILTERS = ["All", "Center", "Forward", "Guard"]
+
+export const FONT_SIZE_DEFAULT = 16
