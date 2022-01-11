@@ -181,8 +181,6 @@ const App: () => Node = () => {
 
   const PlayerList = () => {
 
-    if (selectedTab !== TABS.PLAYER_SELECTION) return null
-
     if (!playerData) return null
 
     return (
@@ -217,18 +215,7 @@ const App: () => Node = () => {
     )
   }
 
-  const TeamBuilder = () => {
-
-    if (selectedTab !== TABS.MY_TEAM) return null
-
-    return (
-      <View style={styles.teamBuilderContainer}>
-        <TeamInput />
-        <Spacer style={styles.teamBuilderSpacer} />
-        <Team />
-      </View>
-    )
-  }
+  
 
   const TeamInput = () => {
 
@@ -274,6 +261,17 @@ const App: () => Node = () => {
     )
   }
 
+  const TeamBuilder = () => {
+
+    return (
+      <View style={styles.teamBuilderContainer}>
+        <TeamInput />
+        <Spacer style={styles.teamBuilderSpacer} />
+        <Team />
+      </View>
+    )
+  }
+
   const Spacer = props => <View style={styles.spacer} {...props} />
 
   const TabView = () => {
@@ -305,8 +303,11 @@ const App: () => Node = () => {
     <SafeAreaView style={styles.main}>
       <TabView />
       <View style={{ flex: 0.9 }}>
-        <TeamBuilder />
-        <PlayerList />
+        {selectedTab === TABS.MY_TEAM ?
+          <TeamBuilder />
+          :
+          <PlayerList />
+        }
       </View>
     </SafeAreaView>
   );
