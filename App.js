@@ -23,6 +23,9 @@ import {
   FONT_SIZE_DEFAULT 
 } from './Constants'
 
+var _teamName = ""
+var _teamCity = ""
+
 const App: () => Node = () => {
 
   const [selectedTab, setSelectedTab] = useState(TABS.MY_TEAM)
@@ -215,30 +218,34 @@ const App: () => Node = () => {
     )
   }
 
-  
-
   const TeamInput = () => {
 
-    const [teamName, setTeamName] = useState("")
-    const [teamCity, setTeamCity] = useState("")
+    const [teamName, setTeamName] = useState(_teamName)
+    const [teamCity, setTeamCity] = useState(_teamCity)
 
     return (
       <View style={styles.teamBuilderInputContainer}>
         <View style={styles.teamBuilderInputRow}>
           <Text style={styles.teamBuilderInputLabel}>Team City: </Text>
           <TextInput 
-            value={teamCity} 
+            value={_teamCity} 
             style={styles.teamBuilderInputValue} 
-            onChangeText={setTeamCity}
+            onChangeText={text => {
+              _teamCity = text
+              setTeamCity(text)
+            }}
           />
         </View>
         <Spacer />
         <View style={styles.teamBuilderInputRow}>
           <Text style={styles.teamBuilderInputLabel}>Team Name: </Text>
           <TextInput 
-            value={teamName} 
+            value={_teamName} 
             style={styles.teamBuilderInputValue} 
-            onChangeText={setTeamName} 
+            onChangeText={text => {
+              _teamName = text
+              setTeamName(text)
+            }}
           />
         </View>
       </View>
