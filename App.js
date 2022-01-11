@@ -16,6 +16,8 @@ import _ from 'lodash'
 
 import { POSITIONS, POSITION_ARRAY, ENDPOINTS, TABS, FILTERS, FONT_SIZE_DEFAULT } from './Constants'
 
+
+
 const App: () => Node = () => {
 
   const [selectedTab, setSelectedTab] = useState(TABS.MY_TEAM)
@@ -176,6 +178,8 @@ const App: () => Node = () => {
 
   const PlayerList = () => {
 
+    if (selectedTab !== TABS.PLAYER_SELECTION) return null
+
     if (!playerData) return null
 
     return (
@@ -211,6 +215,8 @@ const App: () => Node = () => {
   }
 
   const TeamBuilder = () => {
+
+    if (selectedTab !== TABS.MY_TEAM) return null
 
     return (
       <View style={styles.teamBuilderContainer}>
@@ -268,14 +274,24 @@ const App: () => Node = () => {
 
   const TabView = () => {
 
+    let isMyTeamsActive = selectedTab === TABS.MY_TEAM
+
     return (
       <View style={styles.tabContainer}>
-        <TouchableOpacity style={[styles.tabDefault, selectedTab === TABS.MY_TEAM ? styles.tabSelected : null]} onPress={() => setSelectedTab(TABS.MY_TEAM)}>
-          <Text style={[styles.tabLabelDefault, selectedTab === TABS.MY_TEAM ? styles.tabLabelSelected : null]}>My Team</Text>
+        <TouchableOpacity 
+          style={[styles.tabDefault, isMyTeamsActive ? styles.tabSelected : null]} 
+          onPress={() => setSelectedTab(TABS.MY_TEAM)}
+          disabled={isMyTeamsActive}
+        >
+          <Text style={[styles.tabLabelDefault, isMyTeamsActive ? styles.tabLabelSelected : null]}>My Team</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.tabDefault, selectedTab === TABS.PLAYER_SELECTION ? styles.tabSelected : null]} onPress={() => setSelectedTab(TABS.PLAYER_SELECTION)}>
-          <Text style={[styles.tabLabelDefault, selectedTab === TABS.PLAYER_SELECTION ? styles.tabLabelSelected : null]}>Player List</Text>
+        <TouchableOpacity 
+          style={[styles.tabDefault, !isMyTeamsActive ? styles.tabSelected : null]} 
+          onPress={() => setSelectedTab(TABS.PLAYER_SELECTION)}
+          disabled={!isMyTeamsActive}
+        >
+          <Text style={[styles.tabLabelDefault, !isMyTeamsActive ? styles.tabLabelSelected : null]}>Player List</Text>
         </TouchableOpacity>
       </View>
     )
@@ -284,13 +300,9 @@ const App: () => Node = () => {
   return (
     <SafeAreaView style={styles.main}>
       <TabView />
-
       <View style={{ flex: 0.9 }}>
-        {selectedTab === TABS.MY_TEAM ?
-          <TeamBuilder />
-          :
-          <PlayerList />
-        }
+        <TeamBuilder />
+        <PlayerList />
       </View>
     </SafeAreaView>
   );
