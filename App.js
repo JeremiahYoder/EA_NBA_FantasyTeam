@@ -228,7 +228,7 @@ const App: () => Node = () => {
         <View style={styles.teamBuilderInputRow}>
           <Text style={styles.teamBuilderInputLabel}>Team City: </Text>
           <TextInput 
-            value={_teamCity} 
+            value={teamCity} 
             style={styles.teamBuilderInputValue} 
             onChangeText={text => {
               _teamCity = text
@@ -240,7 +240,7 @@ const App: () => Node = () => {
         <View style={styles.teamBuilderInputRow}>
           <Text style={styles.teamBuilderInputLabel}>Team Name: </Text>
           <TextInput 
-            value={_teamName} 
+            value={teamName} 
             style={styles.teamBuilderInputValue} 
             onChangeText={text => {
               _teamName = text
